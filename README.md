@@ -1,1 +1,1 @@
-"# es-cqrs-axon-bookstore" 
+# es-cqrs-axon-bookstore
