@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: books-query
+  datasource:
+    url: jdbc:postgresql://query-db:5432/books
+    username: books
+    password: secret
+  jpa:
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true

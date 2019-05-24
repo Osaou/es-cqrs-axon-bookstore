@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: "@springProfile@"
+server:
+  port: 8080
+axon:
+  axonserver:
+    servers: axonsrv:8124

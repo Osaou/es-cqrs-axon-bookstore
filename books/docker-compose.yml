@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  axonsrv:
+    image: axoniq/axonserver
+    container_name: axonsrv
+    ports:
+      - 8024:8024
+      - 8124:8124
+
+  books-cmd:
+    build:
+      context: .
+      dockerfile: Dockerfile-cmd
+    image: osaou/books-cmd:latest
+    container_name: books-cmd
+    depends_on:
+      - axonsrv
+    ports:
+      - 8001:8080
+
+  books-query:
+    build:
+      context: .
+      dockerfile: Dockerfile-query
+    image: osaou/books-query:latest
+    container_name: books-query
+    depends_on:
+      - axonsrv
+      - query-db
+    ports:
+      - 8002:8080
+
+  query-db:
+    image: postgres:9.6
+    container_name: query-db
+    environment:
+      - POSTGRES_USER=books
+      - POSTGRES_PASSWORD=secret
