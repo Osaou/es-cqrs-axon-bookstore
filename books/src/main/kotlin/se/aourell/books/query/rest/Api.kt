@@ -20,6 +20,6 @@ class Api {
             bookListProjector.getAll()
 
     @GetMapping("/books/:id")
-    fun singleBook(@PathVariable id: UUID): Book =
+    fun singleBook(@PathVariable id: UUID): Book? =
             bookListProjector.getById(id)
 }
