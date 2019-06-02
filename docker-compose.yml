@@ -5,9 +5,18 @@ networks:
     external: true
 
 services:
+  apigw:
+    build: ./_be-api-gw
+    image: bookstore/apigw:latest
+    container_name: apigw
+    ports:
+      - 8000:8080
+    networks:
+      - axon
+
   books-cmd:
     build:
-      context: .
+      context: ./books
       dockerfile: Dockerfile-cmd
     image: bookstore/books-cmd:latest
     container_name: books-cmd
@@ -18,7 +27,7 @@ services:
 
   books-query:
     build:
-      context: .
+      context: ./books
       dockerfile: Dockerfile-query
     image: bookstore/books-query:latest
     container_name: books-query

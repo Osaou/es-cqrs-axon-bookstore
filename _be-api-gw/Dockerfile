@@ -7,14 +7,14 @@ COPY pom.xml mvnw ./
 RUN ./mvnw dependency:copy-dependencies process-resources
 
 COPY src src
-RUN ./mvnw -T 1C package -Pquery-docker -Dmaven.test.skip=true
+RUN ./mvnw -T 1C package -Dmaven.test.skip=true
 
 
 
 FROM adoptopenjdk/openjdk11:alpine-jre
 
 WORKDIR /app
-COPY --from=builder /app/target/books-1.0.0.jar app.jar
+COPY --from=builder /app/target/apigw-1.0.0.jar app.jar
 
 CMD java -jar app.jar
 EXPOSE 8080

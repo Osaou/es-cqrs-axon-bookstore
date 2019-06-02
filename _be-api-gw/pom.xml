@@ -4,14 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>se.aourell.bookstore</groupId>
-	<artifactId>books</artifactId>
+	<artifactId>apigw</artifactId>
 	<version>1.0.0</version>
-	<name>books</name>
-	<description>Demo project for Spring Boot</description>
+	<name>apigw</name>
+	<description>api gateway</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<kotlin.version>1.2.71</kotlin.version>
+		<spring.version>5.1.7.RELEASE</spring.version>
+		<spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+		<axon.version>4.1</axon.version>
 	</properties>
 
 	<parent>
@@ -27,6 +30,14 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-kotlin</artifactId>
 		</dependency>
@@ -38,6 +49,11 @@
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -48,39 +64,9 @@
 		<dependency>
 			<groupId>org.axonframework</groupId>
 			<artifactId>axon-spring-boot-starter</artifactId>
-			<version>4.1</version>
+			<version>${axon.version}</version>
 		</dependency>
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>cmd-test</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<springProfile>cmd-test</springProfile>
-			</properties>
-		</profile>
-		<profile>
-			<id>cmd-docker</id>
-			<properties>
-				<springProfile>cmd-docker</springProfile>
-			</properties>
-		</profile>
-		<profile>
-			<id>query-test</id>
-			<properties>
-				<springProfile>query-test</springProfile>
-			</properties>
-		</profile>
-		<profile>
-			<id>query-docker</id>
-			<properties>
-				<springProfile>query-docker</springProfile>
-			</properties>
-		</profile>
-	</profiles>
 
 	<build>
 		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
