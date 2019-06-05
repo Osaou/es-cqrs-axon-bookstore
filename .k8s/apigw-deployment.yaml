@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: apigw
+  name: apigw
+  namespace: fenix-poc-v1
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      io.kompose.service: apigw
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: apigw
+        io.kompose.service: apigw
+    spec:
+      containers:
+      - image: 910440518126.dkr.ecr.eu-central-1.amazonaws.com/fenix-poc/bookstore/apigw:v1
+        name: apigw
+        ports:
+        - containerPort: 8080
+        resources: {}
+        env:
+        - name: SERVICE_BOOKS_QUERY
+          value: books-query.fenix-poc-v1
+        - name: SERVICE_BOOKS_CMD
+          value: books-cmd.fenix-poc-v1
+      restartPolicy: Always
+status: {}

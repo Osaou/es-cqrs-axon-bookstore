@@ -7,7 +7,7 @@ networks:
 services:
   apigw:
     build: ./_be-api-gw
-    image: bookstore/apigw:latest
+    image: 910440518126.dkr.ecr.eu-central-1.amazonaws.com/fenix-poc/bookstore/apigw:v1
     container_name: apigw
     ports:
       - 8000:8080
@@ -18,7 +18,7 @@ services:
     build:
       context: ./books
       dockerfile: Dockerfile-cmd
-    image: bookstore/books-cmd:latest
+    image: 910440518126.dkr.ecr.eu-central-1.amazonaws.com/fenix-poc/bookstore/book-cmd:v1
     container_name: books-cmd
     ports:
       - 8001:8080
@@ -29,7 +29,7 @@ services:
     build:
       context: ./books
       dockerfile: Dockerfile-query
-    image: bookstore/books-query:latest
+    image: 910440518126.dkr.ecr.eu-central-1.amazonaws.com/fenix-poc/bookstore/book-query:v1
     container_name: books-query
     ports:
       - 8002:8080

@@ -12,12 +12,9 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 
-interface ProxyApi {
+abstract class ProxyApi {
 
-    val server: String
-    val port: Int
-
-    fun mirrorRest(body: String?, method: HttpMethod, request: HttpServletRequest, response: HttpServletResponse): ResponseEntity<String> {
+    protected fun mirrorRest(body: String?, method: HttpMethod, request: HttpServletRequest, response: HttpServletResponse, server: String, port: Int): ResponseEntity<String> {
         val requestUrl = request.requestURI
 
         val uri = UriComponentsBuilder.fromUri(URI("http", null, server, port, null, null, null))

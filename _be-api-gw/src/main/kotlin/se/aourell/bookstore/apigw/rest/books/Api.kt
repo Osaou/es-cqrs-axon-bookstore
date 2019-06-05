@@ -1,5 +1,6 @@
 package se.aourell.bookstore.apigw.rest.books
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -9,12 +10,21 @@ import se.aourell.bookstore.apigw.rest.ProxyApi
 
 
 @RestController
-class Api : ProxyApi {
+class Api : ProxyApi() {
 
-    override val server = "books-query"
-    override val port = 8080
+    @Value("\${SERVICE_BOOKS_QUERY:books-query}")
+    val queryServer = ""
+    val queryPort = 8080
 
-    @RequestMapping("/books/**")
-    override fun mirrorRest(@RequestBody(required = false) body: String?, method: HttpMethod, request: HttpServletRequest, response: HttpServletResponse): ResponseEntity<String> =
-            super.mirrorRest(body, method, request, response)
+    @Value("\${SERVICE_BOOKS_CMD:books-cmd}")
+    val cmdServer = ""
+    val cmdPort = 8080
+
+    @GetMapping("/books/**")
+    fun mirrorQueries(@RequestBody(required = false) body: String?, method: HttpMethod, request: HttpServletRequest, response: HttpServletResponse): ResponseEntity<String> =
+            mirrorRest(body, method, request, response, queryServer, queryPort)
+
+    @PostMapping("/books/**")
+    fun mirrorCmds(@RequestBody(required = false) body: String?, method: HttpMethod, request: HttpServletRequest, response: HttpServletResponse): ResponseEntity<String> =
+            mirrorRest(body, method, request, response, cmdServer, cmdPort)
 }
